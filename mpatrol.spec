@@ -12,7 +12,7 @@ URL:		http://www.cbmamiga.demon.co.uk/mpatrol/index.html
 BuildRequires:	libstdc++-devel
 BuildRequires:	texinfo
 Requires(post,postun):	/sbin/ldconfig
-Buildroot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
+BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
 A link library that attempts to diagnose run-time errors that are
