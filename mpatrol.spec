@@ -10,7 +10,7 @@ Patch0:		%{name}-info.patch
 URL:		http://www.cbmamiga.demon.co.uk/mpatrol/index.html
 BuildRequires:	libstdc++-devel
 BuildRequires:	texinfo
-Prereq:		/sbin/ldconfig
+Requires(post,postun):	/sbin/ldconfig
 Buildroot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -47,11 +47,11 @@ zmiennych ¶rodowiskowych.
 %patch -p1
 
 %build
-(cd build/unix
- %{__make} libmpatrol.a libmpatrol.so mpatrol mprof mleak \
+%{__make} -C build/unix libmpatrol.a libmpatrol.so mpatrol mprof mleak \
 	OFLAGS="%{rpmcflags}"
-)
-(cd doc; makeinfo mpatrol.texi)
+
+cd doc
+makeinfo mpatrol.texi
 
 %install
 rm -rf $RPM_BUILD_ROOT
@@ -67,16 +67,6 @@ install doc/mpatrol.info* $RPM_BUILD_ROOT%{_infodir}
 install man/man1/* $RPM_BUILD_ROOT%{_mandir}/man1
 install man/man3/* $RPM_BUILD_ROOT%{_mandir}/man3
 
-%files
-%defattr(644,root,root,755)
-%doc README NEWS ChangeLog
-%attr(755,root,root) %{_bindir}/*
-%attr(755,root,root) %{_libdir}/*.so*
-%{_libdir}/*.a
-%{_includedir}/*
-%{_infodir}/*
-%{_mandir}/man[13]/*
-
 %clean
 rm -rf $RPM_BUILD_ROOT
 
@@ -87,3 +77,13 @@ rm -rf $RPM_BUILD_ROOT
 %postun
 /sbin/ldconfig
 [ ! -x /usr/sbin/fix-info-dir ] || /usr/sbin/fix-info-dir %{_infodir} >/dev/null 2>&1
+
+%files
+%defattr(644,root,root,755)
+%doc README NEWS ChangeLog
+%attr(755,root,root) %{_bindir}/*
+%attr(755,root,root) %{_libdir}/*.so*
+%{_libdir}/*.a
+%{_includedir}/*
+%{_infodir}/*.info*
+%{_mandir}/man[13]/*
