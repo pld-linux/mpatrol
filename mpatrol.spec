@@ -1,7 +1,7 @@
 Summary:	A library for controlling and tracing dynamic memory allocations
 Name:		mpatrol
-Version:	1.2.0
-Release:	2
+Version:	1.2.3
+Release:	1
 License:	LGPL
 Group:		Development/Debuggers
 Group(pl):	Programowanie/Odpluskwiacze
@@ -32,8 +32,7 @@ recompile or relink in order to change the library's behaviour.
 
 %build
 cd build/unix
-%{__make} libmpatrol.a libmpatrol.so mpatrol mprof mleak
-
+%{__make} libmpatrol.a libmpatrol.so mpatrol mprof mleak OFLAGS="$RPM_OPT_FLAGS"
 
 %install
 rm -rf $RPM_BUILD_ROOT
