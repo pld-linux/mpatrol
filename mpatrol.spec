@@ -1,7 +1,7 @@
 Summary:	A library for controlling and tracing dynamic memory allocations
 Summary(pl):	Biblioteka do kontroli i ¶ledzenia dynamicznej alokacji pamiêcie
 Name:		mpatrol
-Version:	1.4.1
+Version:	1.4.2
 Release:	1
 License:	LGPL
 Group:		Development/Debuggers
