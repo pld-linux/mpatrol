@@ -1,60 +1,29 @@
-# mpatrol
-# A library for controlling and tracing dynamic memory allocations.
-# Copyright (C) 1997-2000 Graeme S. Roy <graeme@epc.co.uk>
-#
-# This library is free software; you can redistribute it and/or
-# modify it under the terms of the GNU Library General Public
-# License as published by the Free Software Foundation; either
-# version 2 of the License, or (at your option) any later version.
-#
-# This library is distributed in the hope that it will be useful,
-# but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-# Library General Public License for more details.
-#
-# You should have received a copy of the GNU Library General Public
-# License along with this library; if not, write to the Free
-# Software Foundation, Inc., 59 Temple Place, Suite 330, Boston,
-# MA 02111-1307, USA.
-
-
-# RPM package specification file
-
-
-# $Id: mpatrol.spec,v 1.1 2000-05-18 00:27:55 kloczek Exp $
-
-
-%define version 1.2.0
-%define libversion 1.2
-
-
-Summary: A library for controlling and tracing dynamic memory allocations
-Name: mpatrol
-Version: %{version}
-Release: 1
-Copyright: LGPL
-Group: Development/Debuggers
-Source0: http://www.cbmamiga.demon.co.uk/mpatrol/files/mpatrol_%{version}.tar.gz
-Source1: http://www.cbmamiga.demon.co.uk/mpatrol/files/mpatrol_doc.tar.gz
-URL: http://www.cbmamiga.demon.co.uk/mpatrol/index.html
-Buildroot: /var/tmp/mpatrol-root
-Prereq: /sbin/install-info /sbin/ldconfig
-Packager: Graeme S. Roy <graeme@epc.co.uk>
-
+Summary:	A library for controlling and tracing dynamic memory allocations
+Name:		mpatrol
+Version:	1.2.0
+Release:	1
+License:	LGPL
+Group:		Development/Debuggers
+Group(pl):	Programowanie/Odpluskwiacze
+Source0:	http://www.cbmamiga.demon.co.uk/mpatrol/files/%{name}_%{version}.tar.gz
+Source1:	http://www.cbmamiga.demon.co.uk/mpatrol/files/%{name}_doc.tar.gz
+URL:		http://www.cbmamiga.demon.co.uk/mpatrol/index.html
+Buildroot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
-A link library that attempts to diagnose run-time errors that are caused
-by the wrong use of dynamically allocated memory.  Along with providing a
-comprehensive and configurable log of all dynamic memory operations that
-occurred during the lifetime of a program, the mpatrol library performs
-extensive checking to detect any misuse of dynamically allocated memory.
-All of this functionality can be integrated into existing code through
-the inclusion of a single header file at compile-time.  All logging and
-tracing output from the mpatrol library is sent to a separate log file in
-order to keep its diagnostics separate from any that the program being
-tested might generate.  A wide variety of library settings can also be
-changed at run-time via an environment variable, thus removing the need
-to recompile or relink in order to change the library's behaviour.
+A link library that attempts to diagnose run-time errors that are
+caused by the wrong use of dynamically allocated memory. Along with
+providing a comprehensive and configurable log of all dynamic memory
+operations that occurred during the lifetime of a program, the mpatrol
+library performs extensive checking to detect any misuse of
+dynamically allocated memory. All of this functionality can be
+integrated into existing code through the inclusion of a single header
+file at compile-time. All logging and tracing output from the mpatrol
+library is sent to a separate log file in order to keep its
+diagnostics separate from any that the program being tested might
+generate. A wide variety of library settings can also be changed at
+run-time via an environment variable, thus removing the need to
+recompile or relink in order to change the library's behaviour.
 
 
 %prep
@@ -68,73 +37,60 @@ make libmpatrol.a libmpatrol.so.%{libversion} mpatrol mprof mleak
 
 %install
 rm -rf $RPM_BUILD_ROOT
-mkdir -p $RPM_BUILD_ROOT/usr/bin
-cp build/unix/mpatrol $RPM_BUILD_ROOT/usr/bin
-cp build/unix/mprof $RPM_BUILD_ROOT/usr/bin
-cp build/unix/mleak $RPM_BUILD_ROOT/usr/bin
-mkdir -p $RPM_BUILD_ROOT/usr/doc/mpatrol-%{version}/images
-cp README $RPM_BUILD_ROOT/usr/doc/mpatrol-%{version}
-cp doc/README $RPM_BUILD_ROOT/usr/doc/mpatrol-%{version}/README.DOC
-cp FAQ $RPM_BUILD_ROOT/usr/doc/mpatrol-%{version}
-cp COPYING $RPM_BUILD_ROOT/usr/doc/mpatrol-%{version}
-cp COPYING.LIB $RPM_BUILD_ROOT/usr/doc/mpatrol-%{version}
-cp NEWS $RPM_BUILD_ROOT/usr/doc/mpatrol-%{version}
-cp ChangeLog $RPM_BUILD_ROOT/usr/doc/mpatrol-%{version}
-cp doc/mpatrol.txt $RPM_BUILD_ROOT/usr/doc/mpatrol-%{version}
-cp doc/mpatrol.guide $RPM_BUILD_ROOT/usr/doc/mpatrol-%{version}
-cp doc/mpatrol.html $RPM_BUILD_ROOT/usr/doc/mpatrol-%{version}
-cp doc/mpatrol.dvi $RPM_BUILD_ROOT/usr/doc/mpatrol-%{version}
-cp doc/mpatrol.ps $RPM_BUILD_ROOT/usr/doc/mpatrol-%{version}
-cp doc/mpatrol.pdf $RPM_BUILD_ROOT/usr/doc/mpatrol-%{version}
-cp doc/refcard.dvi $RPM_BUILD_ROOT/usr/doc/mpatrol-%{version}
-cp doc/refcard.ps $RPM_BUILD_ROOT/usr/doc/mpatrol-%{version}
-cp doc/refcard.pdf $RPM_BUILD_ROOT/usr/doc/mpatrol-%{version}
-cp doc/images/mpatrol.txt $RPM_BUILD_ROOT/usr/doc/mpatrol-%{version}/images
-cp doc/images/mpatrol.jpg $RPM_BUILD_ROOT/usr/doc/mpatrol-%{version}/images
-cp doc/images/mpatrol.eps $RPM_BUILD_ROOT/usr/doc/mpatrol-%{version}/images
-cp doc/images/mpatrol.pdf $RPM_BUILD_ROOT/usr/doc/mpatrol-%{version}/images
-mkdir -p $RPM_BUILD_ROOT/usr/include
-cp src/mpatrol.h $RPM_BUILD_ROOT/usr/include
-mkdir -p $RPM_BUILD_ROOT/usr/info
-cp doc/mpatrol.info $RPM_BUILD_ROOT/usr/info
-mkdir -p $RPM_BUILD_ROOT/usr/lib
-cp build/unix/libmpatrol.a $RPM_BUILD_ROOT/usr/lib
-cp build/unix/libmpatrol.so.%{libversion} $RPM_BUILD_ROOT/usr/lib
-mkdir -p $RPM_BUILD_ROOT/usr/man/man1
-cp man/man1/mpatrol.1 $RPM_BUILD_ROOT/usr/man/man1
-cp man/man1/mprof.1 $RPM_BUILD_ROOT/usr/man/man1
-cp man/man1/mleak.1 $RPM_BUILD_ROOT/usr/man/man1
-mkdir -p $RPM_BUILD_ROOT/usr/man/man3
-cp man/man3/mpatrol.3 $RPM_BUILD_ROOT/usr/man/man3
+install -d $RPM_BUILD_ROOT{%{_bindir},%{_includedir},%{_infodir}} \
+	$RPM_BUILD_ROOT{%{_libdir},%{_mandir}/man{1,3}
+
+cp build/unix/mpatrol $RPM_BUILD_ROOT%{_bindir}
+cp build/unix/mprof $RPM_BUILD_ROOT%{_bindir}
+cp build/unix/mleak $RPM_BUILD_ROOT%{_bindir}
+cp README $RPM_BUILD_ROOT%{_prefix}/doc/mpatrol-%{version}
+cp doc/README $RPM_BUILD_ROOT%{_prefix}/doc/mpatrol-%{version}/README.DOC
+cp FAQ $RPM_BUILD_ROOT%{_prefix}/doc/mpatrol-%{version}
+cp COPYING $RPM_BUILD_ROOT%{_prefix}/doc/mpatrol-%{version}
+cp COPYING.LIB $RPM_BUILD_ROOT%{_prefix}/doc/mpatrol-%{version}
+cp NEWS $RPM_BUILD_ROOT%{_prefix}/doc/mpatrol-%{version}
+cp ChangeLog $RPM_BUILD_ROOT%{_prefix}/doc/mpatrol-%{version}
+cp doc/mpatrol.txt $RPM_BUILD_ROOT%{_prefix}/doc/mpatrol-%{version}
+cp doc/mpatrol.guide $RPM_BUILD_ROOT%{_prefix}/doc/mpatrol-%{version}
+cp doc/mpatrol.html $RPM_BUILD_ROOT%{_prefix}/doc/mpatrol-%{version}
+cp doc/mpatrol.dvi $RPM_BUILD_ROOT%{_prefix}/doc/mpatrol-%{version}
+cp doc/mpatrol.ps $RPM_BUILD_ROOT%{_prefix}/doc/mpatrol-%{version}
+cp doc/mpatrol.pdf $RPM_BUILD_ROOT%{_prefix}/doc/mpatrol-%{version}
+cp doc/refcard.dvi $RPM_BUILD_ROOT%{_prefix}/doc/mpatrol-%{version}
+cp doc/refcard.ps $RPM_BUILD_ROOT%{_prefix}/doc/mpatrol-%{version}
+cp doc/refcard.pdf $RPM_BUILD_ROOT%{_prefix}/doc/mpatrol-%{version}
+cp doc/images/mpatrol.txt $RPM_BUILD_ROOT%{_prefix}/doc/mpatrol-%{version}/images
+cp doc/images/mpatrol.jpg $RPM_BUILD_ROOT%{_prefix}/doc/mpatrol-%{version}/images
+cp doc/images/mpatrol.eps $RPM_BUILD_ROOT%{_prefix}/doc/mpatrol-%{version}/images
+cp doc/images/mpatrol.pdf $RPM_BUILD_ROOT%{_prefix}/doc/mpatrol-%{version}/images
+cp src/mpatrol.h $RPM_BUILD_ROOT%{_includedir}
+cp doc/mpatrol.info $RPM_BUILD_ROOT%{_prefix}/info
+cp build/unix/libmpatrol.a $RPM_BUILD_ROOT%{_libdir}
+cp build/unix/libmpatrol.so.%{libversion} $RPM_BUILD_ROOT%{_libdir}
+cp man/man1/mpatrol.1 $RPM_BUILD_ROOT%{_mandir}/man1
+cp man/man1/mprof.1 $RPM_BUILD_ROOT%{_mandir}/man1
+cp man/man1/mleak.1 $RPM_BUILD_ROOT%{_mandir}/man1
+cp man/man3/mpatrol.3 $RPM_BUILD_ROOT%{_mandir}/man3
 
 
 %files
-/usr/bin
-/usr/doc
-/usr/include
-/usr/info
-/usr/lib
-/usr/man
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_bindir}/*
+%{_prefix}/doc
+%{_includedir}/*
+%{_infodir/*
+%{_libdir}/*
+%{_mandir}/man[13]/*
 
 
 %post
 /sbin/ldconfig
-/sbin/install-info /usr/info/mpatrol.info /usr/info/dir
-
+[ -x /usr/sbin/fix-info-dir ] && /usr/sbin/fix-info-dir -c %{_infodir} >/dev/null 2>&1
 
 %preun
-if [ $1 = 0 ]
-then
-    /sbin/install-info --delete /usr/info/mpatrol.info /usr/info/dir
-fi
+[ -x /usr/sbin/fix-info-dir ] && /usr/sbin/fix-info-dir -c %{_infodir} >/dev/null 2>&1
 
-
-%postun
-if [ $1 = 0 ]
-then
-    /sbin/ldconfig
-fi
-
+%postun -p /sbin/ldconfig
 
 %clean
 rm -rf $RPM_BUILD_ROOT
