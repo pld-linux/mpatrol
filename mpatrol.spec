@@ -1,17 +1,18 @@
 Summary:	A library for controlling and tracing dynamic memory allocations
-Summary(pl):	Biblioteka do kontroli i ¶ledzenia dynamicznej alokacji pamiêcie
+Summary(pl):	Biblioteka do kontroli i ¶ledzenia dynamicznej alokacji pamiêci
 Name:		mpatrol
 Version:	1.4.7
-Release:	1
+Release:	2
 License:	LGPL
 Group:		Development/Debuggers
 Group(de):	Entwicklung/Debugger
 Group(pl):	Programowanie/Odpluskwiacze
 Source0:	http://www.cbmamiga.demon.co.uk/mpatrol/files/%{name}_%{version}.tar.gz
 Patch0:		%{name}-info.patch
+URL:		http://www.cbmamiga.demon.co.uk/mpatrol/index.html
 BuildRequires:	libstdc++-devel
 BuildRequires:	texinfo
-URL:		http://www.cbmamiga.demon.co.uk/mpatrol/index.html
+Prereq:		/sbin/ldconfig
 Buildroot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -28,6 +29,20 @@ diagnostics separate from any that the program being tested might
 generate. A wide variety of library settings can also be changed at
 run-time via an environment variable, thus removing the need to
 recompile or relink in order to change the library's behaviour.
+
+%description -l pl
+Biblioteka próbuj±ca zdiagnozowaæ b³êdy dzia³ania programu spowodowane
+z³ym u¿ywaniem dynamicznie alokowanej pamiêci. Oprócz dawania
+obszernego i konfigurowalnego loga wszystkich dynamicznych operacji na
+pamiêci, które wyst±pi³y podczas dzia³ania programu, biblioteka
+mpatrol stara siê wykryæ wszelkie niew³a¶ciwe u¿ycia dynamicznie
+przydzielonej pamiêci. Ca³a funkcjonalno¶æ mo¿e byæ zintegrowana z
+istniej±cym kodem poprzez do³±czenie jednego pliku nag³ówkowego w
+czasie kompilacji. Ca³e logi i zapis ¶ledzenia z biblioteki mpatrol s±
+zapisywane do oddzielnego pliku aby oddzieliæ je od wszystkiego
+innego, co program mo¿e wygenerowaæ. Szeroki zakres ustawieñ
+biblioteki mo¿e byæ zmieniany bez rekompilacji poprzez ustawianie
+zmiennych ¶rodowiskowych.
 
 %prep
 %setup -q -n mpatrol
@@ -60,10 +75,14 @@ gzip -9nf README NEWS ChangeLog
 %defattr(644,root,root,755)
 %doc *.gz
 %attr(755,root,root) %{_bindir}/*
+%attr(755,root,root) %{_libdir}/*.so*
+%{_libdir}/*.a
 %{_includedir}/*
-%{_libdir}/*
 %{_infodir}/*
 %{_mandir}/man[13]/*
+
+%clean
+rm -rf $RPM_BUILD_ROOT
 
 %post
 /sbin/ldconfig
@@ -72,6 +91,3 @@ gzip -9nf README NEWS ChangeLog
 %postun
 /sbin/ldconfig
 [ ! -x /usr/sbin/fix-info-dir ] || /usr/sbin/fix-info-dir %{_infodir} >/dev/null 2>&1
-
-%clean
-rm -rf $RPM_BUILD_ROOT
