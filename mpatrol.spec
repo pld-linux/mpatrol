@@ -36,7 +36,7 @@ recompile or relink in order to change the library's behaviour.
 %build
 (cd build/unix
  %{__make} libmpatrol.a libmpatrol.so mpatrol mprof mleak \
-	OFLAGS="%{?debug:-O0 -g}%{!?debug:$RPM_OPT_FLAGS}"
+	OFLAGS="%{rpmcflags}"
 )
 (cd doc; makeinfo mpatrol.texi)
 
