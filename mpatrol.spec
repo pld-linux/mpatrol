@@ -1,7 +1,7 @@
 Summary:	A library for controlling and tracing dynamic memory allocations
 Name:		mpatrol
 Version:	1.2.0
-Release:	1
+Release:	2
 License:	LGPL
 Group:		Development/Debuggers
 Group(pl):	Programowanie/Odpluskwiacze
@@ -32,65 +32,52 @@ recompile or relink in order to change the library's behaviour.
 
 %build
 cd build/unix
-%{__make} libmpatrol.a libmpatrol.so.%{libversion} mpatrol mprof mleak
+%{__make} libmpatrol.a libmpatrol.so mpatrol mprof mleak
 
 
 %install
 rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT{%{_bindir},%{_includedir},%{_infodir}} \
-	$RPM_BUILD_ROOT{%{_libdir},%{_mandir}/man{1,3}
+	$RPM_BUILD_ROOT{%{_libdir},%{_mandir}/man{1,3}}
 
-cp build/unix/mpatrol $RPM_BUILD_ROOT%{_bindir}
-cp build/unix/mprof $RPM_BUILD_ROOT%{_bindir}
-cp build/unix/mleak $RPM_BUILD_ROOT%{_bindir}
-cp README $RPM_BUILD_ROOT%{_prefix}/doc/mpatrol-%{version}
-cp doc/README $RPM_BUILD_ROOT%{_prefix}/doc/mpatrol-%{version}/README.DOC
-cp FAQ $RPM_BUILD_ROOT%{_prefix}/doc/mpatrol-%{version}
-cp COPYING $RPM_BUILD_ROOT%{_prefix}/doc/mpatrol-%{version}
-cp COPYING.LIB $RPM_BUILD_ROOT%{_prefix}/doc/mpatrol-%{version}
-cp NEWS $RPM_BUILD_ROOT%{_prefix}/doc/mpatrol-%{version}
-cp ChangeLog $RPM_BUILD_ROOT%{_prefix}/doc/mpatrol-%{version}
-cp doc/mpatrol.txt $RPM_BUILD_ROOT%{_prefix}/doc/mpatrol-%{version}
-cp doc/mpatrol.guide $RPM_BUILD_ROOT%{_prefix}/doc/mpatrol-%{version}
-cp doc/mpatrol.html $RPM_BUILD_ROOT%{_prefix}/doc/mpatrol-%{version}
-cp doc/mpatrol.dvi $RPM_BUILD_ROOT%{_prefix}/doc/mpatrol-%{version}
-cp doc/mpatrol.ps $RPM_BUILD_ROOT%{_prefix}/doc/mpatrol-%{version}
-cp doc/mpatrol.pdf $RPM_BUILD_ROOT%{_prefix}/doc/mpatrol-%{version}
-cp doc/refcard.dvi $RPM_BUILD_ROOT%{_prefix}/doc/mpatrol-%{version}
-cp doc/refcard.ps $RPM_BUILD_ROOT%{_prefix}/doc/mpatrol-%{version}
-cp doc/refcard.pdf $RPM_BUILD_ROOT%{_prefix}/doc/mpatrol-%{version}
-cp doc/images/mpatrol.txt $RPM_BUILD_ROOT%{_prefix}/doc/mpatrol-%{version}/images
-cp doc/images/mpatrol.jpg $RPM_BUILD_ROOT%{_prefix}/doc/mpatrol-%{version}/images
-cp doc/images/mpatrol.eps $RPM_BUILD_ROOT%{_prefix}/doc/mpatrol-%{version}/images
-cp doc/images/mpatrol.pdf $RPM_BUILD_ROOT%{_prefix}/doc/mpatrol-%{version}/images
-cp src/mpatrol.h $RPM_BUILD_ROOT%{_includedir}
-cp doc/mpatrol.info $RPM_BUILD_ROOT%{_prefix}/info
-cp build/unix/libmpatrol.a $RPM_BUILD_ROOT%{_libdir}
-cp build/unix/libmpatrol.so.%{libversion} $RPM_BUILD_ROOT%{_libdir}
-cp man/man1/mpatrol.1 $RPM_BUILD_ROOT%{_mandir}/man1
-cp man/man1/mprof.1 $RPM_BUILD_ROOT%{_mandir}/man1
-cp man/man1/mleak.1 $RPM_BUILD_ROOT%{_mandir}/man1
-cp man/man3/mpatrol.3 $RPM_BUILD_ROOT%{_mandir}/man3
+BINARIES="mpatrol mprof mleak"
+for f in $BINARIES; do 
+	install -s build/unix/$f $RPM_BUILD_ROOT%{_bindir}
+done 
 
+install src/mpatrol.h $RPM_BUILD_ROOT%{_includedir}
+install build/unix/libmpatrol.a $RPM_BUILD_ROOT%{_libdir}
+cp build/unix/libmpatrol.so* $RPM_BUILD_ROOT%{_libdir}
+
+
+
+gzip -9nf doc/mpatrol.info 
+install doc/mpatrol.info.gz $RPM_BUILD_ROOT%{_infodir}
+
+MANUALS="man1/mpatrol.1 man1/mprof.1 man1/mleak.1 man3/mpatrol.3"
+for f in $MANUALS; do 
+	gzip -9nf man/$f
+	install man/$f.gz $RPM_BUILD_ROOT%{_mandir}/`dirname $f`
+done
+
+gzip -9nf {README,FAQ,NEWS,ChangeLog}
 
 %files
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/*
-%{_prefix}/doc
 %{_includedir}/*
-%{_infodir/*
 %{_libdir}/*
+%{_infodir}/*
 %{_mandir}/man[13]/*
-
+%doc {README,FAQ,NEWS,ChangeLog}.gz
 
 %post
 /sbin/ldconfig
-[ ! -x /usr/sbin/fix-info-dir ] || /usr/sbin/fix-info-dir -c %{_infodir} >/dev/null 2>&1
+[ ! -x /usr/sbin/fix-info-dir ] || /usr/sbin/fix-info-dir %{_infodir} >/dev/null 2>&1
 
-%preun
-[ ! -x /usr/sbin/fix-info-dir ] || /usr/sbin/fix-info-dir -c %{_infodir} >/dev/null 2>&1
-
-%postun -p /sbin/ldconfig
+%postun
+/sbin/ldconfig
+[ ! -x /usr/sbin/fix-info-dir ] || /usr/sbin/fix-info-dir %{_infodir} >/dev/null 2>&1
 
 %clean
 rm -rf $RPM_BUILD_ROOT
