@@ -1,0 +1,15 @@
+diff -Nru mpatrol/doc/mpatrol.texi mpatrol.new/doc/mpatrol.texi
+--- mpatrol/doc/mpatrol.texi	Fri Jan  5 19:39:22 2001
++++ mpatrol.new/doc/mpatrol.texi	Mon Jan  8 16:55:25 2001
+@@ -14,9 +14,9 @@
+ @finalout
+ @c %**end of header
+ 
+-@dircategory Programming tools
++@dircategory Programming tools:
+ @direntry
+-* mpatrol: (mpatrol).           The mpatrol library.
++* mpatrol: (mpatrol).			The mpatrol library
+ @end direntry
+ 
+ @c Remember to change these after each revision!
