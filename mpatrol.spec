@@ -5,8 +5,6 @@ Version:	1.4.8
 Release:	1
 License:	LGPL
 Group:		Development/Debuggers
-Group(de):	Entwicklung/Debugger
-Group(pl):	Programowanie/Odpluskwiacze
 Source0:	http://www.cbmamiga.demon.co.uk/mpatrol/files/%{name}_%{version}.tar.gz
 Patch0:		%{name}-info.patch
 URL:		http://www.cbmamiga.demon.co.uk/mpatrol/index.html
