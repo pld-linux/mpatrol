@@ -67,11 +67,9 @@ install doc/mpatrol.info* $RPM_BUILD_ROOT%{_infodir}
 install man/man1/* $RPM_BUILD_ROOT%{_mandir}/man1
 install man/man3/* $RPM_BUILD_ROOT%{_mandir}/man3
 
-gzip -9nf README NEWS ChangeLog
-
 %files
 %defattr(644,root,root,755)
-%doc *.gz
+%doc README NEWS ChangeLog
 %attr(755,root,root) %{_bindir}/*
 %attr(755,root,root) %{_libdir}/*.so*
 %{_libdir}/*.a
