@@ -1,0 +1,11 @@
+--- mpatrol/src/machine.h.orig	2002-01-08 20:13:59.000000000 +0000
++++ mpatrol/src/machine.h	2004-05-06 20:31:43.000000000 +0000
+@@ -61,7 +61,7 @@
+ unsigned int __mp_stackpointer(void);
+ unsigned int __mp_returnaddress(void);
+ #elif ARCH == ARCH_SPARC
+-#if SYSTEM == SYSTEM_SUNOS
++#if SYSTEM == SYSTEM_SUNOS || SYSTEM == SYSTEM_LINUX
+ unsigned int __mp_stackpointer(void);
+ #endif /* SYSTEM */
+ #endif /* ARCH */
