@@ -6,6 +6,7 @@ Release:	1
 License:	LGPL
 Group:		Development/Debuggers
 Source0:	http://www.cbmamiga.demon.co.uk/mpatrol/files/%{name}_%{version}.tar.gz
+# Source0-md5:	ada423c49bc5bfa7c3e7a80a711c2a1a
 Patch0:		%{name}-info.patch
 URL:		http://www.cbmamiga.demon.co.uk/mpatrol/index.html
 BuildRequires:	libstdc++-devel
