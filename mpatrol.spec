@@ -32,7 +32,7 @@ recompile or relink in order to change the library's behaviour.
 
 %build
 cd build/unix
-make libmpatrol.a libmpatrol.so.%{libversion} mpatrol mprof mleak
+%{__make} libmpatrol.a libmpatrol.so.%{libversion} mpatrol mprof mleak
 
 
 %install
