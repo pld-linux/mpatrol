@@ -1,5 +1,5 @@
 Summary:	A library for controlling and tracing dynamic memory allocations
-Summary(pl):	Biblioteka do kontroli i ¶ledzenia dynamicznej alokacji pamiêci
+Summary(pl.UTF-8):   Biblioteka do kontroli i Å›ledzenia dynamicznej alokacji pamiÄ™ci
 Name:		mpatrol
 Version:	1.4.8
 Release:	3
@@ -30,19 +30,19 @@ generate. A wide variety of library settings can also be changed at
 run-time via an environment variable, thus removing the need to
 recompile or relink in order to change the library's behaviour.
 
-%description -l pl
-Biblioteka próbuj±ca zdiagnozowaæ b³êdy dzia³ania programu spowodowane
-z³ym u¿ywaniem dynamicznie alokowanej pamiêci. Oprócz dawania
+%description -l pl.UTF-8
+Biblioteka prÃ³bujÄ…ca zdiagnozowaÄ‡ bÅ‚Ä™dy dziaÅ‚ania programu spowodowane
+zÅ‚ym uÅ¼ywaniem dynamicznie alokowanej pamiÄ™ci. OprÃ³cz dawania
 obszernego i konfigurowalnego loga wszystkich dynamicznych operacji na
-pamiêci, które wyst±pi³y podczas dzia³ania programu, biblioteka
-mpatrol stara siê wykryæ wszelkie niew³a¶ciwe u¿ycia dynamicznie
-przydzielonej pamiêci. Ca³a funkcjonalno¶æ mo¿e byæ zintegrowana z
-istniej±cym kodem poprzez do³±czenie jednego pliku nag³ówkowego w
-czasie kompilacji. Ca³e logi i zapis ¶ledzenia z biblioteki mpatrol s±
-zapisywane do oddzielnego pliku aby oddzieliæ je od wszystkiego
-innego, co program mo¿e wygenerowaæ. Szeroki zakres ustawieñ
-biblioteki mo¿e byæ zmieniany bez rekompilacji poprzez ustawianie
-zmiennych ¶rodowiskowych.
+pamiÄ™ci, ktÃ³re wystÄ…piÅ‚y podczas dziaÅ‚ania programu, biblioteka
+mpatrol stara siÄ™ wykryÄ‡ wszelkie niewÅ‚aÅ›ciwe uÅ¼ycia dynamicznie
+przydzielonej pamiÄ™ci. CaÅ‚a funkcjonalnoÅ›Ä‡ moÅ¼e byÄ‡ zintegrowana z
+istniejÄ…cym kodem poprzez doÅ‚Ä…czenie jednego pliku nagÅ‚Ã³wkowego w
+czasie kompilacji. CaÅ‚e logi i zapis Å›ledzenia z biblioteki mpatrol sÄ…
+zapisywane do oddzielnego pliku aby oddzieliÄ‡ je od wszystkiego
+innego, co program moÅ¼e wygenerowaÄ‡. Szeroki zakres ustawieÅ„
+biblioteki moÅ¼e byÄ‡ zmieniany bez rekompilacji poprzez ustawianie
+zmiennych Å›rodowiskowych.
 
 %prep
 %setup -q -n mpatrol
