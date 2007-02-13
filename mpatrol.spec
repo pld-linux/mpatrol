@@ -1,5 +1,5 @@
 Summary:	A library for controlling and tracing dynamic memory allocations
-Summary(pl.UTF-8):   Biblioteka do kontroli i śledzenia dynamicznej alokacji pamięci
+Summary(pl.UTF-8):	Biblioteka do kontroli i śledzenia dynamicznej alokacji pamięci
 Name:		mpatrol
 Version:	1.4.8
 Release:	3
