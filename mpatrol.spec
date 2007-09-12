@@ -10,6 +10,7 @@ Source0:	http://www.cbmamiga.demon.co.uk/mpatrol/files/%{name}_%{version}.tar.gz
 Patch0:		%{name}-info.patch
 Patch1:		%{name}-sparc.patch
 URL:		http://www.cbmamiga.demon.co.uk/mpatrol/index.html
+BuildRequires:	binutils-devel
 BuildRequires:	libstdc++-devel
 BuildRequires:	texinfo
 Requires(post,postun):	/sbin/ldconfig
